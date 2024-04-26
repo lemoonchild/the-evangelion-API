@@ -4,13 +4,13 @@ import bodyParser from 'body-parser'
 
 const app = express()
 
-app.use(express.json)
+app.use(express.json())
 
-app.use(bodyParser.json)
+app.use(bodyParser.json())
 
 app.use(cors())
 
-const port = 5007
+const port = 5000
 
 app.get('/', async (req, res) => {
   res.send('Hello world from API!')
