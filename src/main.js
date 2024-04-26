@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import bodyParser from 'bodyparser'
+import bodyParser from 'body-parser'
 
 const app = express()
 
@@ -13,7 +13,7 @@ app.use(cors())
 const port = 5007
 
 app.get('/', async (req, res) => {
-  res.send('Hello world from API! owo')
+  res.send('Hello world from API!')
 })
 
 app.listen(port, () => {
