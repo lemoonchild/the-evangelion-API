@@ -28,3 +28,9 @@ export async function getPostByID(id) {
   const result = await conn.query(sql, [id])
   return result.rows[0].length > 0 ? result.rows : 'No post found.'
 }
+
+export async function createPost(title, content, author_id, category, tags) {
+  const sql = `INSERT INTO blog_posts (title, content, author_id, category, tags) VALUES ($1, $2, $3, $4, $5)`
+  await conn.query(sql, [title, content, author_id, category, tags])
+  return true
+}
