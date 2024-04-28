@@ -31,21 +31,19 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body // Recibe la contraseña en texto plano
+  const { username, password_md5 } = req.body
 
   try {
-    // Aplica MD5 en el servidor, no confíes en que el cliente lo haya hecho
-    const user = await loginUser(username, password)
+    const user = await loginUser(username, password_md5)
     if (user) {
       res
         .status(200)
         .json({ status: 'success', message: 'User logged in successfully', data: user })
     } else {
-      // Si no se encuentra el usuario, envía un error de credenciales incorrectas
-      throw new Error('Invalid username or password')
+      res.status(401).json({ status: 'failed', message: 'Invalid username or password.' })
     }
   } catch (error) {
-    res.status(401).json({ status: 'failed', message: 'Invalid username or password' })
+    res.status(500).json({ status: 'failed', error: error.message })
   }
 })
 
