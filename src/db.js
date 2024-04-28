@@ -34,3 +34,8 @@ export async function createPost(title, content, author_id, category, tags) {
   await conn.query(sql, [title, content, author_id, category, tags])
   return true
 }
+export async function updatePost(id, title, content, category, tags) {
+  const sql = `UPDATE blog_posts SET title = $2, content = $3, category = $4, tags = $5, WHERE id = $1`
+  await conn.query(sql, [id, title, content, author_id, category, tags])
+  return true
+}
