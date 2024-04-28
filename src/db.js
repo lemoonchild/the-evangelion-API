@@ -39,3 +39,10 @@ export async function updatePost(id, title, content, category, tags) {
   await conn.query(sql, [id, title, content, author_id, category, tags])
   return true
 }
+export async function deletePost(id) {
+  const sql = `DELETE FROM blog_posts WHERE id = $1`
+  const result = await conn.query(sql, [id])
+  return result.affectedRows > 0
+    ? 'Post with ID ${id} has been deleted!'
+    : 'Post with ID ${id} not found or already deleted!'
+}
