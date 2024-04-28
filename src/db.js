@@ -22,3 +22,9 @@ export async function getPosts() {
   const result = await conn.query(`SELECT * FROM blog_posts`)
   return result.rows.length > 0 ? result.rows : 'No posts found.'
 }
+
+export async function getPostByID(id) {
+  const sql = `SELECT * FROM blog_posts WHERE id = $1`
+  const result = await conn.query(sql, [id])
+  return result.rows[0].length > 0 ? result.rows : 'No post found.'
+}
