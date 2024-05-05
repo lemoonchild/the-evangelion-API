@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import jwt from 'jsonwebtoken'
 
 import {
   registerUser,
@@ -45,9 +46,17 @@ app.post('/login', async (req, res) => {
   try {
     const user = await loginUser(username, password_md5)
     if (user) {
-      res
-        .status(200)
-        .json({ status: 'success', message: 'User logged in successfully', data: user })
+      const token = jwt.sign(
+        { username: user.username, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' },
+      )
+      res.status(200).json({
+        status: 'success',
+        message: 'User logged in successfully',
+        data: user,
+        data: token,
+      })
     } else {
       res.status(401).json({ status: 'failed', message: 'Invalid username or password.' })
     }
