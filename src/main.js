@@ -118,7 +118,7 @@ app.post('/post', authenticateToken, async (req, res) => {
 })
 
 // Actualizar un post
-app.put('/post/:id', async (req, res) => {
+app.put('/post/:id', authenticateToken, async (req, res) => {
   const id = req.params.id
   const { title, content, category, tags } = req.body
   try {
