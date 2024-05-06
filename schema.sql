@@ -32,3 +32,9 @@ BEFORE UPDATE ON blog_posts
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
 
+ALTER TABLE users
+ADD COLUMN role VARCHAR(255) DEFAULT 'Usuario';
+
+-- Administrador
+--INSERT INTO USERS (USERNAME, PASSWORD_MD5, EMAIL, ROLE) VALUES ('lemoonchild', MD5('reiAdmin21#'), 'lemoonchild@gmail.com', 'Administrador')
+

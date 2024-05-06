@@ -46,16 +46,16 @@ app.post('/login', async (req, res) => {
   try {
     const user = await loginUser(username, password_md5)
     if (user) {
-      const token = jwt.sign(
-        { username: user.username, email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: '24h' },
-      )
+      const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET, {
+        expiresIn: '24h',
+      })
       res.status(200).json({
         status: 'success',
         message: 'User logged in successfully',
-        data: user,
-        data: token,
+        username: user.username,
+        token: token,
+        role: user.role,
+        id: user.id,
       })
     } else {
       res.status(401).json({ status: 'failed', message: 'Invalid username or password.' })
