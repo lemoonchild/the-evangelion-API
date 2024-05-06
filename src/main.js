@@ -14,6 +14,8 @@ import {
   updatePost,
 } from './db.js'
 
+import authenticateToken from './middleware.js'
+
 const app = express()
 
 app.use(express.json())
@@ -77,7 +79,7 @@ app.get('/user/:id', async (req, res) => {
 })
 
 // Obtener todos los posts
-app.get('/posts', async (req, res) => {
+app.get('/posts', authenticateToken, async (req, res) => {
   try {
     const posts = await getPosts()
     if (posts !== 'No posts found.') {
@@ -104,7 +106,7 @@ app.get('/post/:id', async (req, res) => {
 })
 
 // Realizar un post
-app.post('/post', async (req, res) => {
+app.post('/post', authenticateToken, async (req, res) => {
   const { title, content, author_id, author_name, category, tags } = req.body
 
   try {
