@@ -4,7 +4,7 @@ const { Pool } = pkg
 dotenv.config()
 
 const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL + '?sslmode=require',
+  connectionString: process.env.POSTGRES_URL + '?sslmode=require'
 })
 
 pool.connect((err) => {
