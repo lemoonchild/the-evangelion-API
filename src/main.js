@@ -79,7 +79,7 @@ app.get('/user/:id', async (req, res) => {
 })
 
 // Obtener todos los posts
-app.get('/posts', authenticateToken, async (req, res) => {
+app.get('/posts', async (req, res) => {
   try {
     const posts = await getPosts()
     if (posts !== 'No posts found.') {
