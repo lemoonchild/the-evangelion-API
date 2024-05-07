@@ -31,11 +31,11 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-  const { username, passwordMd5, email } = req.body
+  const { username, password_md5, email } = req.body
   console.log(req.body)
 
   try {
-    await registerUser(username, passwordMd5, email)
+    await registerUser(username, password_md5, email)
     res.status(200).json({ status: 'success', message: 'User registered succesully.' })
   } catch (error) {
     res.status(500).json({ status: 'failed', error: error.message })
@@ -43,10 +43,10 @@ app.post('/register', async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-  const { username, passwordMd5 } = req.body
+  const { username, password_md5 } = req.body
 
   try {
-    const user = await loginUser(username, passwordMd5)
+    const user = await loginUser(username, password_md5)
     if (user) {
       const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: '24h'
@@ -107,10 +107,10 @@ app.get('/post/:id', async (req, res) => {
 
 // Realizar un post
 app.post('/post', authenticateToken, async (req, res) => {
-  const { title, content, authorId, authorName, category, tags } = req.body
+  const { title, content, author_id, author_name, category, tags } = req.body
 
   try {
-    await createPost(title, content, authorId, authorName, category, tags)
+    await createPost(title, content, author_id, author_name, category, tags)
     res.status(201).json({ status: 'success', message: 'Post created successfully.' })
   } catch (error) {
     res.status(500).json({ status: 'failed', error: error.message })

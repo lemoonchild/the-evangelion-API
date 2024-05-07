@@ -9,6 +9,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-template-curly-in-string": "off"
+    "no-template-curly-in-string": "off",
+    "camelcase": "off"
   }
 }
